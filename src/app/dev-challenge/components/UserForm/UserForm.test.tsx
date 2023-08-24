@@ -1,49 +1,51 @@
 import React from "react";
 import UserForm from "./UserForm";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import HttpService from "./utility/HttpService";
+import {
+  mockedQuery,
+  resetMockedQuery,
+} from "@/app/dev-challenge/components/UserForm/utility/HttpService.test-helper";
 
 jest.mock("./utility/HttpService");
 
 describe("UserForm", () => {
-  const query = jest.fn();
+  const query = jest.fn().mockImplementation(mockedQuery);
 
-  beforeEach(() => {
+  beforeAll(() => {
+    // Note: The HttpService is already mocked
     HttpService.query = query;
   });
 
-  it("should render successfully", () => {
-    expect(() => {
-      render(<UserForm />);
-    }).not.toThrow();
+  beforeEach(() => {
+    resetMockedQuery();
   });
 
-  //Maybe we give the dev test plan and they can run with it?
+  it("should render successfully and display the userId", () => {
+    render(<UserForm userId={123} />);
+    expect(screen.getByText("User Id: 123")).toBeInTheDocument();
+  });
 
-  it("displays the name of the user after loading", () => {
+  /**
+   * Hints:
+   * - `getBy` is synchronous
+   * - `findBy` is asynchronous, and returns a promise. use `await` to wait for an element to be found.
+   *
+   * - use `import userEvent from '@testing-library/user-event';` for interacting with elements
+   *
+   */
+
+  it(`displays the name of the user, "John Doe", after loading`, async () => {
     throw new Error("not implemented");
   });
 
-  it("lets you enter a new name for the user, and updates the user, then displays the new name", () => {
+  it(`displays the name of the user, "John Doe", after loading and pre-populates the input with the name`, async () => {
     throw new Error("not implemented");
   });
 
-  //These would be built-in already that validate some behaviors
-
-  it("displays loading text while the user data is being fetched", () => {
-    throw new Error("not implemented");
-  });
-
-  it("displays a generic error message if the user data could not be fetched", () => {
-    throw new Error("not implemented");
-  });
-
-  it("Makes the proper call to the api to request the initial user data", () => {
-    throw new Error("not implemented");
-  });
-
-  it("Makes the proper call to the api to update the user data", () => {
+  it(`pre-populates the name and input, clears the input, then enters a new name for the user, submits the form to update the user, then displays the new name`, async () => {
     throw new Error("not implemented");
   });
 });

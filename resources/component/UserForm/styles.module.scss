@@ -21,5 +21,8 @@
     // padded
     // rounded corners
     // on hover, opacity 80%
+
+    // todo: this style needs to be removed in the final version, but the comments above are left
+    @apply bg-blue-500 text-white rounded py-2 px-4 hover:opacity-90;
   }
 }
