@@ -6,7 +6,7 @@ import HttpService from "./utility/HttpService";
 
 type HttpServiceModule = {
   query: (options: QueryOptions) => Promise<QueryResponse>;
-};
+}
 
 interface QueryOptions {
   url: string;
@@ -41,7 +41,6 @@ type UserFormProps = {
  * successful response
  * - status: 200
  * - body: {user: User}
- * Note the User type
  */
 
 /**
@@ -58,6 +57,22 @@ type UserFormProps = {
  */
 
 export default function UserForm({ userId }: UserFormProps) {
+  //todo: all of this state is removed before the final version
+  const [user, setUser] = useState<User | null>(null);
+
+  const [newUserName, setNewUserName] = useState("");
+
+  // todo : use effects are removed in the final version
+  useEffect(() => {
+    void getUserInfo();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setNewUserName(user.name);
+    }
+  }, [user]);
+
   return (
     <main className="m-12">
       <p className={"font-mono text-xs text-gray-700"}>
@@ -75,13 +90,17 @@ export default function UserForm({ userId }: UserFormProps) {
             }
           >
             <h3 className={"mb-2 text-2xl font-semibold"}>User Info</h3>
-
             <h4 className={"mb-2 text-lg font-semibold"}>Name</h4>
-
-            {/* todo: User name goes here  */}
+            {/** User name goes here */}
+            {/** todo: user name is removed in the final version */}
+            <p>{user?.name}</p>
           </div>
 
-          <div data-testid={"update-user-form"} className={styles.Container}>
+          {/** todo: this className needs to be changed to "styles.Container" in the final version*/}
+          <div
+            data-testid={"update-user-form"}
+            className={styles.FormContainer}
+          >
             <h3 className={styles.Header}>Update User Form</h3>
 
             <div className={styles.InputContainer}>
@@ -94,10 +113,13 @@ export default function UserForm({ userId }: UserFormProps) {
                 id={"user-name"}
                 type="text"
                 className={styles.Input}
+                value={newUserName}
+                onChange={(e) => setNewUserName(e.target.value)}
               />
             </div>
 
             <div className={"flex justify-end"}>
+              {/** Todo: this on-click stays, calls the updateUser function */}
               <button
                 type="button"
                 onClick={updateUser}
@@ -113,10 +135,36 @@ export default function UserForm({ userId }: UserFormProps) {
     </main>
   );
 
+  //todo: this is removed from the final version, but the function below gives an example of how it should be done
+  async function getUserInfo() {
+    try {
+      const response = await HttpService.query({
+        method: "GET",
+        url: "/api/v1/users/" + userId,
+      });
+      if (response.status === 200) {
+        setUser(response.body.user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // todo: this stays empty, and throws an error of Not Implemented
   async function updateUser() {
     try {
-      // Use HttpService.query to perform the request
-      throw new Error("update user query not implemented");
+      // TODO: remove this query in the final version
+      const response = await HttpService.query({
+        method: "PUT",
+        url: "/api/v1/users/" + userId,
+        body: {
+          name: newUserName,
+        },
+      });
+
+      if (response.status === 200) {
+        void getUserInfo();
+      }
     } catch (error) {
       console.log(error);
     }

@@ -64,14 +64,14 @@ export default {
  *
  */
 
-interface QueryOptions {
+export interface QueryOptions {
   url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
   body?: any;
   query?: Record<string, string>;
 }
 
-interface QueryResponse {
+export interface QueryResponse {
   status: 200 | 404;
   body: any;
 }
