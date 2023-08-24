@@ -2,7 +2,7 @@
 
 [FOR INTERNAL USE ONLY]
 
-[These instructions can be found and updated ]
+[These instructions can be found and updated at https://github.com/guidecx/fe-interview-question/edit/master/resources/component/README.md]
 
 ## Before the interview
 
