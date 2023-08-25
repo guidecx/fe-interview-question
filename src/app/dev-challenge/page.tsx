@@ -8,20 +8,19 @@ export default function DevChallengePage() {
         <div data-testid={"instructions"} className={"font-mono"}>
           <h1 className={"text-xl"}>Welcome!</h1>
 
-          <p>
+          <p className="mb-4">
             Here, we have a form where you can display and update a user's name.
             Please take a look at the files located in this folder to complete
             this challenge:
-            <ul className={"ml-8 list-disc"}>
-              <li>src/app/dev-challenge/components/UserForm/UserForm.tsx</li>
-              <li>
-                src/app/dev-challenge/components/UserForm/UserForm.test.tsx
-              </li>
-              <li>
-                src/app/dev-challenge/components/UserForm/styles.module.scss
-              </li>
-            </ul>
           </p>
+
+          <ul className={"ml-8 list-disc"}>
+            <li>src/app/dev-challenge/components/UserForm/UserForm.tsx</li>
+            <li>src/app/dev-challenge/components/UserForm/UserForm.test.tsx</li>
+            <li>
+              src/app/dev-challenge/components/UserForm/styles.module.scss
+            </li>
+          </ul>
 
           <p className={"mt-4"}>
             You can get started by running the tests with the following command:

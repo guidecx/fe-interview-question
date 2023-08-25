@@ -1,4 +1,9 @@
-import { QueryOptions } from "@/app/dev-challenge/components/UserForm/utility/HttpService";
+interface QueryOptions {
+  url: string;
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  body?: any;
+  query?: Record<string, string>;
+}
 
 const JOHN_DOE = "John Doe";
 
