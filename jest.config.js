@@ -14,7 +14,7 @@ module.exports = makeConfig({
 
   setupFilesAfterEnv: ["<rootDir>/config/tests/setupTests.ts"],
 
-  modulePathIgnorePatterns: ["<rootDir>/resources/"],
+  modulePathIgnorePatterns: ["<rootDir>/.resources/"],
 
   transform: {
     "^.+\\.(t|j)sx?$": [
